@@ -9,6 +9,7 @@ import com.sparta.remindspring.domain.member.dto.LoginResponse
 import com.sparta.remindspring.domain.member.dto.SignUpRequest
 import com.sparta.remindspring.domain.member.model.Member
 import com.sparta.remindspring.domain.member.repository.MemberRepository
+import com.sparta.remindspring.infra.security.jwt.JwtPlugin
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -47,8 +48,9 @@ class MemberService(
         }
 
         return LoginResponse(
-            accessToken = jtwPlugin.generateAccessToken(
-
+            accessToken = jwtPlugin.generateAccessToken(
+                subject = member.id.toString(),
+                nickname = member.nickname
             )
         )
     }
