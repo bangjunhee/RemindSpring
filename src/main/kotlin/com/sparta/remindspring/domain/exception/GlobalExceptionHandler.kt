@@ -24,7 +24,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler
     fun handleDuplicateNicknameException(e: DuplicateNicknameException): ResponseEntity<Unit>{
         return ResponseEntity
-            .status(HttpStatus.IM_USED)
+            .status(HttpStatus.BAD_REQUEST)
             .build()
     }
     @ExceptionHandler

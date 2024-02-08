@@ -18,19 +18,23 @@ class JwtPlugin(
     @Value("\${auth.jwt.secret}") private val secret: String,
     @Value("\${auth.jwt.accessTokenExpirationHour}") private val accessTokenExpirationHour: Long
 ) {
+    // 토큰이 유효한지 검사하는 메서드
+    // jwt 를 받아 runCatching 을 사용해 Result 형태로 반환
+    // secret 을 이용해 key 생성, key 를 기반으로 검증 수행
     fun validateToken(jwt : String): Result<Jws<Claims>> {
         return kotlin.runCatching {
             val key = Keys.hmacShaKeyFor(secret.toByteArray(StandardCharsets.UTF_8))
             Jwts.parser().verifyWith(key).build().parseSignedClaims((jwt))
-
         }
     }
+
 
     fun generateAccessToken(subject: String, nickname: String): String {
         return generateToken(subject, nickname, Duration.ofHours(accessTokenExpirationHour))
     }
 
     private fun generateToken(subject: String, nickname: String, expirationPeriod: Duration): String {
+        // CustomClaims 설정
         val claims: Claims = Jwts.claims()
             .add(mapOf("nickname" to nickname))
             .build()

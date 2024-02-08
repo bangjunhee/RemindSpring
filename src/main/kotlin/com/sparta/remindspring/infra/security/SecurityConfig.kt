@@ -21,8 +21,16 @@ class SecurityConfig {
             .httpBasic { it.disable() } // BasicAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter 제외
             .formLogin { it.disable() } // UsernamePasswordAuthenticationFilter, DefaultLoginPageGeneratingFilter, DefaultLogoutPageGeneratingFilter 제외
             .csrf { it.disable() } // CsrfFilter 제외
-
-
+            .authorizeHttpRequests {
+                it.requestMatchers(
+                    "/api/v1/members/login",
+                    "/api/v1/members/signup",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/h2-console/**"
+                ).permitAll()
+            }
+            .headers { it.frameOptions { it1 -> it1.disable() } }
             .build()
     }
 

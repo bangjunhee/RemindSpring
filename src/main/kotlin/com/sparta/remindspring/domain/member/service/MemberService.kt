@@ -3,7 +3,7 @@ package com.sparta.remindspring.domain.member.service
 import com.sparta.remindspring.domain.exception.DuplicateNicknameException
 import com.sparta.remindspring.domain.exception.PasswordCheckErrorException
 import com.sparta.remindspring.domain.exception.PasswordSettingErrorException
-import com.sparta.remindspring.domain.exception.dto.ModelNotFoundException
+import com.sparta.remindspring.domain.exception.ModelNotFoundException
 import com.sparta.remindspring.domain.member.dto.LoginRequest
 import com.sparta.remindspring.domain.member.dto.LoginResponse
 import com.sparta.remindspring.domain.member.dto.SignUpRequest
