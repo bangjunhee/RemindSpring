@@ -1,4 +1,4 @@
-package com.sparta.todolist.infra.swagger
+package com.sparta.remindspring.infra.swagger
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI

@@ -11,23 +11,23 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format-sql: true
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        SQL: debug
-#        type:
-#          descriptor:
-#            sql: trace
-#        orm:
-#          jdbc:
-#            bind: trace
-#          springframework: # ??!
-#            security: debug # ??!
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+        orm:
+          jdbc:
+            bind: trace
+          springframework: # ??!
+            security: debug # ??!
 
 auth:
   jwt:
