@@ -3,6 +3,7 @@ package com.sparta.remindspring.domain.post.controller
 import com.sparta.remindspring.domain.post.dto.DetailedPostResponse
 import com.sparta.remindspring.domain.post.dto.PostRequest
 import com.sparta.remindspring.domain.post.dto.SimplePostResponse
+import com.sparta.remindspring.domain.post.dto.UpdatePostRequest
 import com.sparta.remindspring.domain.post.model.Post
 import com.sparta.remindspring.domain.post.service.PostService
 import com.sparta.remindspring.infra.common.SortOrder
@@ -37,15 +38,33 @@ class PostController(private val postService: PostService) {
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
         @RequestParam(defaultValue = "ASC") sortOrder: SortOrder
-    ): ResponseEntity<Page<SimplePostResponse>>{
+    ): ResponseEntity<List<SimplePostResponse>>{
         val posts = postService.findAllPostsByPaging(page, size, sortOrder)
         return ResponseEntity.status(HttpStatus.OK).body(posts)
     }
 
     @GetMapping("/{postId}")
-    fun getPostById(@PathVariable postId: Long): ResponseEntity<DetailedPostResponse>{
-        val post = postService.getPostById(postId)
+    fun getPostById(
+        @PathVariable postId: Long,
+        @RequestParam(defaultValue = "0") page: Int
+    ): ResponseEntity<DetailedPostResponse>{
+        val post = postService.getPostById(postId, page)
         return ResponseEntity.status(HttpStatus.OK).body(post)
+    }
+
+    @PutMapping("/{postId}")
+    fun updatePost(
+        @PathVariable postId: Long,
+        @Valid @RequestBody updatePostRequest: UpdatePostRequest
+    ): ResponseEntity<DetailedPostResponse>{
+        val updatePost = postService.updatePost(postId, updatePostRequest)
+        return ResponseEntity.ok(updatePost)
+    }
+
+    @DeleteMapping("/{postId}")
+    fun deletePost(@PathVariable postId: Long): ResponseEntity<Unit>{
+        postService.deletePost(postId)
+        return ResponseEntity.noContent().build()
     }
 
 
